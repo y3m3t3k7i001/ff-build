@@ -1,8 +1,4 @@
-FROM debian:11
-
-ENV DEBIAN_FRONTEND noninteractive
-
-# FROM ubuntu:16.04
+FROM ubuntu:16.04
 
 # Container for compiling ffmpeg and copying ffmpeg, ffprobe, and ffserver to the host operating system.
 # If the host OS is not linux, another container could instead use the binary.
@@ -60,9 +56,9 @@ RUN set -x \
 && apt-get -y install libmp3lame-dev \
 && apt-get -y install libopus-dev \
 && cd ~/ffmpeg_sources \
-&& wget https://github.com/webmproject/libvpx/archive/v1.13.0.tar.gz \
-&& tar xzvf v1.13.0.tar.gz \
-&& cd libvpx-1.13.0 \
+&& wget https://github.com/webmproject/libvpx/archive/v1.8.2.tar.gz \
+&& tar xzvf v1.8.2.tar.gz \
+&& cd libvpx-1.8.2 \
 && PATH="$HOME/bin:$PATH" ./configure --prefix="$HOME/ffmpeg_build" --disable-examples --disable-unit-tests \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
@@ -97,5 +93,3 @@ RUN cd ~/ffmpeg_sources \
 && make install \
 && make distclean \
 && hash -r
-
-CMD bin/bash
