@@ -1,9 +1,4 @@
-FROM ubuntu:20.04
-
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=Asia/Kolkata
-
-# FROM ubuntu:16.04
+FROM ubuntu:16.04
 
 # Container for compiling ffmpeg and copying ffmpeg, ffprobe, and ffserver to the host operating system.
 # If the host OS is not linux, another container could instead use the binary.
