@@ -1,5 +1,8 @@
 FROM ubuntu:20.04
 
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Kolkata
+
 # FROM ubuntu:16.04
 
 # Container for compiling ffmpeg and copying ffmpeg, ffprobe, and ffserver to the host operating system.
@@ -16,7 +19,7 @@ MAINTAINER chandwarish
 # Get the dependencies
 RUN set -x \
 && apt-get update \
-&& apt-get -y install wget git curl autoconf automake build-essential libass-dev libfreetype6-dev \
+&& apt-get -y install wget git curl autoconf automake build-essential libfreetype6-dev libass-dev \
   libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \
   libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev \
 && mkdir ~/ffmpeg_sources \
