@@ -1,4 +1,6 @@
-FROM ubuntu:16.04
+FROM ubuntu:22.04
+
+# FROM ubuntu:16.04
 
 # Container for compiling ffmpeg and copying ffmpeg, ffprobe, and ffserver to the host operating system.
 # If the host OS is not linux, another container could instead use the binary.
@@ -9,7 +11,7 @@ FROM ubuntu:16.04
 # Example run
 # docker run --rm -it -v $(pwd):/host ffmpeg-compiler bash -c "cp /root/bin/ffmpeg /root/bin/ffprobe /root/bin/ffserver /host && chown $(id -u):$(id -g) /host/ffmpeg && chown $(id -u):$(id -g) /host/ffprobe && chown $(id -u):$(id -g) /host/ffserver"
 
-MAINTAINER srwareham
+MAINTAINER chandwarish
 
 # Get the dependencies
 RUN set -x \
@@ -56,9 +58,9 @@ RUN set -x \
 && apt-get -y install libmp3lame-dev \
 && apt-get -y install libopus-dev \
 && cd ~/ffmpeg_sources \
-&& wget https://github.com/webmproject/libvpx/archive/v1.8.2.tar.gz \
-&& tar xzvf v1.8.2.tar.gz \
-&& cd libvpx-1.8.2 \
+&& wget https://github.com/webmproject/libvpx/archive/v1.13.0.tar.gz \
+&& tar xzvf v1.13.0.tar.gz \
+&& cd libvpx-1.13.0 \
 && PATH="$HOME/bin:$PATH" ./configure --prefix="$HOME/ffmpeg_build" --disable-examples --disable-unit-tests \
 && PATH="$HOME/bin:$PATH" make -j$(cat /proc/cpuinfo | grep processor | wc -l) \
 && make install \
@@ -66,7 +68,7 @@ RUN set -x \
 
 #install ffmpeg
 RUN cd ~/ffmpeg_sources \
-&& wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 \
+&& wget -O ffmpeg-snapshot.tar.bz2 https://dl.dropboxusercontent.com/scl/fi/d9zuk28isqewxzlwxxaih/ffmpeg-snapshot-cw.tar.bz2?rlkey=a73ia5pvilducgpq4inn4v5nj \
 && tar xjvf ffmpeg-snapshot.tar.bz2 \
 && cd ffmpeg \
 && PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig" ./configure \
